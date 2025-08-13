@@ -14,6 +14,7 @@ const Hero = () => {
   const descriptionRef = useRef<HTMLParagraphElement>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
 
   // Memoize animation variants to prevent recreation
   const containerVariants = useMemo(() => ({
@@ -37,6 +38,32 @@ const Hero = () => {
   }), []);
 
   useEffect(() => {
+    // GSAP animation for profile image
+    if (imageRef.current) {
+      gsap.fromTo(imageRef.current,
+        {
+          scale: 0.8,
+          rotate: -10,
+          opacity: 0
+        },
+        {
+          scale: 1,
+          rotate: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: 'power3.out',
+        }
+      );
+
+      // Subtle floating effect
+      gsap.to(imageRef.current, {
+        y: 10,
+        repeat: -1,
+        yoyo: true,
+        duration: 2.5,
+        ease: 'sine.inOut',
+      });
+    }
     const tl = gsap.timeline();
 
     // Optimized glitch effect for name
@@ -572,15 +599,37 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Profile Image */}
+          {/* Profile Image with GSAP animation */}
           <motion.div 
             className="lg:w-1/2 mt-12 lg:mt-0 flex justify-center"
             variants={itemVariants}
           >
-            <motion.div
+            <div
+              ref={imageRef}
               className="relative"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
+              style={{ willChange: 'transform' }}
+              onMouseEnter={() => {
+                if (imageRef.current) {
+                  gsap.to(imageRef.current, {
+                    scale: 1.05,
+                    rotate: 3,
+                    boxShadow: '0 0 32px 8px #58A6FF55',
+                    duration: 0.4,
+                    ease: 'power2.out',
+                  });
+                }
+              }}
+              onMouseLeave={() => {
+                if (imageRef.current) {
+                  gsap.to(imageRef.current, {
+                    scale: 1,
+                    rotate: 0,
+                    boxShadow: '0 0 0 0 #58A6FF00',
+                    duration: 0.5,
+                    ease: 'power2.out',
+                  });
+                }
+              }}
             >
               <div
                 className="w-80 h-80 rounded-full bg-gradient-to-br from-[#58A6FF] to-[#F778BA] p-1"
@@ -610,7 +659,7 @@ const Hero = () => {
               >
                 <span className="text-white text-xl">👋</span>
               </motion.div>
-            </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </div>

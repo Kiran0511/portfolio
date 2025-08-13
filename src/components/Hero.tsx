@@ -261,6 +261,46 @@ const Hero = () => {
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+      {/* Java-themed Code Snippet Fade-in */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <motion.div
+          className="absolute text-xs font-mono text-[#ED8B00]/80 bg-[#0D1117]/80 px-3 py-2 rounded shadow-lg border border-[#ED8B00]/30"
+          style={{
+            left: '70%',
+            top: '60%',
+            zIndex: 0,
+            pointerEvents: 'none',
+            opacity: 0.8
+          }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: [0, 0.8, 0.8, 0], y: [20, 0, 0, -20] }}
+          transition={{ duration: 8, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
+        >
+          {'System.out.println("Hello, World!");'}
+        </motion.div>
+      </div>
+      {/* Animated Code Snippet Fade-ins in empty spaces */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        {["console.log('Hello World!');", "const user = 'Kiran';", "system.out.println('Let dreams be dreams.');", "if (success) { celebrate(); }", "<Portfolio />", "npm run dev", "export default Hero;"]
+          .map((snippet, i) => (
+            <motion.div
+              key={i}
+              className="absolute text-xs font-mono text-[#58A6FF]/60 bg-[#0D1117]/70 px-3 py-2 rounded shadow-lg"
+              style={{
+                left: `${10 + Math.random() * 80}%`,
+                top: `${10 + Math.random() * 80}%`,
+                zIndex: 0,
+                pointerEvents: 'none',
+                opacity: 0.7
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: [0, 0.7, 0.7, 0], y: [20, 0, 0, -20] }}
+              transition={{ duration: 7 + Math.random() * 3, repeat: Infinity, repeatDelay: 2 + Math.random() * 2, ease: "easeInOut", delay: i * 1.2 }}
+            >
+              {snippet}
+            </motion.div>
+          ))}
+      </div>
       {/* Optimized Coding-Themed Background */}
       <div className="absolute inset-0 overflow-hidden opacity-30">
         {/* Reduced Matrix Code Rain - 4 columns for performance */}
@@ -282,7 +322,7 @@ const Hero = () => {
                 delay: Math.random() * 10,
               }}
             >
-              {['const', 'function', 'return', 'class', 'import', '{}', '=>', 'async', 'if', 'else', 'for', 'while', 'export', '()', '&&', '||', '===', '!==', 'await', 'try', 'catch', 'useState', 'useEffect', 'map', 'filter'].map((code, index) => (
+              {['const', 'function', 'return', 'class', 'import', '{}', '=>', 'async', 'if', 'else', 'for', 'while', 'export', '()', '&&', '||', '===', '!==', 'await', 'try', 'catch', 'useState', 'useEffect', 'map', 'filter', 'public', 'static', 'void', 'System.out.println()', 'new', 'extends', 'implements', 'this', 'super', 'String', 'int', 'boolean', 'private', 'protected', 'throws', 'interface', 'package', 'import java.util.*;'].map((code, index) => (
                 <motion.div
                   key={index}
                   className="mb-4 opacity-50"

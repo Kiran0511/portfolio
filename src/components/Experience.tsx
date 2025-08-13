@@ -17,7 +17,7 @@ const Experience = () => {
             animate={{ y: [-50, typeof window !== 'undefined' ? window.innerHeight + 50 : 500] }}
             transition={{ duration: 18 + Math.random() * 6, repeat: Infinity, ease: "linear", delay: Math.random() * 12 }}
           >
-            {["const", "function", "return", "class", "import", "export", "=>", "async", "if", "else", "for", "while", "{}", "[]", "()", "&&", "||", "===", "await", "try", "catch", "useState", "useEffect"].map((code, index) => code + " ")}
+            {["const", "function", "return", "class", "import", "export", "=>", "async", "if", "else", "for", "while", "{}", "[]", "()", "&&", "||", "===", "await", "try", "catch", "useState", "useEffect", "public", "static", "void", "System.out.println()", "new", "extends", "implements", "this", "super", "String", "int", "boolean", "private", "protected", "throws", "interface", "package", "import java.util.*;"].map((code, index) => code + " ")}
           </motion.div>
         ))}
       </div>

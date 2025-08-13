@@ -12,14 +12,12 @@ import {
 
   SiNodedotjs,
   SiNextdotjs,
-  
   SiMongodb,
   SiMysql,
-  
   SiAmazon,
-  
   SiPostman
 } from "react-icons/si";
+import { DiJava } from "react-icons/di";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -172,7 +170,7 @@ const Skills = () => {
   }, []);
 
   const technicalSkills = [
-    { name: "Java", icon: <Code />, color: "#ED8B00" },
+  { name: "Java", icon: <DiJava />, color: "#ED8B00" },
     { name: "Node.js", icon: <SiNodedotjs />, color: "#339933" },
     { name: "Express JS", icon: <SiNodedotjs />, color: "#000000" },
     { name: "Next.js", icon: <SiNextdotjs />, color: "#000000" },

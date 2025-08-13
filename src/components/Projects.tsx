@@ -78,7 +78,8 @@ const Projects = () => {
       ],
       icon: Shield,
       color: "text-[#58A6FF]",
-      bgColor: "bg-[#58A6FF]/10"
+      bgColor: "bg-[#58A6FF]/10",
+      github: "https://github.com/Kiran0511/secure-file-sharing"
     },
     {
       title: "Full Stack Hotel Management Website",
@@ -92,7 +93,8 @@ const Projects = () => {
       ],
       icon: Hotel,
       color: "text-[#F778BA]",
-      bgColor: "bg-[#F778BA]/10"
+      bgColor: "bg-[#F778BA]/10",
+      github: "https://github.com/Kiran0511/hotel-management-"
     }
   ];
 
@@ -241,14 +243,17 @@ const Projects = () => {
 
                     {/* Action Buttons */}
                     <div className="w-full mt-4">
-                      <motion.button
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="w-full flex items-center justify-center space-x-2 bg-[#58A6FF] text-white px-6 py-3 rounded-lg hover:bg-[#1F6FEB] transition-colors duration-300 text-base"
                         whileHover={{ scale: 1.03, y: -2 }}
                         whileTap={{ scale: 0.97 }}
                       >
                         <Github size={18} />
                         <span>View Code</span>
-                      </motion.button>
+                      </motion.a>
                     </div>
                   </div>
                 </div>

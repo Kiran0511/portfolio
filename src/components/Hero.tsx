@@ -260,7 +260,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+  <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
       {/* Java-themed Code Snippet Fade-in */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <motion.div
@@ -612,6 +612,7 @@ const Hero = () => {
             </div>
 
             <div ref={buttonsRef} className="flex justify-center lg:justify-start space-x-6">
+              {/* GitHub Button */}
               <motion.a
                 href="https://github.com/Kiran0511"
                 target="_blank"
@@ -624,6 +625,7 @@ const Hero = () => {
                 <Github size={20} className="relative z-10" />
                 <span className="relative z-10">GitHub</span>
               </motion.a>
+              {/* LinkedIn Button */}
               <motion.a
                 href="https://linkedin.com/in/kiran-m-a3b52a274"
                 target="_blank"
@@ -635,6 +637,23 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-[#58A6FF] to-[#F778BA] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <Linkedin size={20} className="relative z-10" />
                 <span className="relative z-10">LinkedIn</span>
+              </motion.a>
+              {/* Download Resume Button - Consistent Style */}
+              <motion.a
+                href="/kiran_resume.pdf"
+                download
+                className="group relative flex items-center space-x-1 bg-[#58A6FF] text-white px-3 py-1.5 rounded-lg hover:bg-[#1F6FEB] transition-all duration-300 overflow-hidden hover:shadow-lg text-sm"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                {/* Download Icon */}
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10">
+                  <path d="M12 3v14m0 0l-5-5m5 5l5-5" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="relative z-10">Download Resume</span>
               </motion.a>
             </div>
           </div>

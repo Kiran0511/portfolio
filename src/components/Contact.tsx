@@ -19,7 +19,7 @@ const Contact = () => {
             animate={{ y: [-50, typeof window !== 'undefined' ? window.innerHeight + 50 : 500] }}
             transition={{ duration: 18 + Math.random() * 6, repeat: Infinity, ease: "linear", delay: Math.random() * 12 }}
           >
-            {["const", "function", "return", "class", "import", "export", "=>", "async", "if", "else", "for", "while", "{}", "[]", "()", "&&", "||", "===", "await", "try", "catch", "useState", "useEffect"].map((code, index) => code + " ")}
+            {["const", "function", "return", "class", "import", "export", "=>", "async", "if", "else", "for", "while"].map((code, index) => code + " ")}
           </motion.div>
         ))}
       </div>

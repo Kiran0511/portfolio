@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState, useRef, useMemo } from 'react';
+import { useDownloadThankYou } from '../hooks/use-download-thankyou';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 import { gsap } from 'gsap';
@@ -9,7 +10,64 @@ import { TextPlugin } from 'gsap/TextPlugin';
 gsap.registerPlugin(TextPlugin);
 
 const Hero = () => {
+  // GSAP-powered particle explosion/ripple effect for buttons ONLY
+  const buttonRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+
+  useEffect(() => {
+    buttonRefs.current.forEach((btn) => {
+      if (!btn) return;
+      // Remove all previous hover listeners and effect elements
+      btn.onmouseenter = null;
+      btn.onmouseleave = null;
+      Array.from(btn.querySelectorAll('.gsap-shimmer, .gsap-underline')).forEach(el => el.remove());
+      btn.addEventListener('mouseenter', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const btnCenterX = rect.width / 2;
+        const btnCenterY = rect.height / 2;
+        const numParticles = 8;
+        const colors = ['#58A6FF', '#F778BA', '#fff', '#8B949E', '#ED8B00', '#22D3EE'];
+        const codeSymbols = ['{ }', '<>', '=>', ';', '()', '[]', '&&', '||', '===', '!', 'const', 'let', 'if', 'for'];
+        const particles: HTMLSpanElement[] = [];
+        for (let i = 0; i < numParticles; i++) {
+          const particle = document.createElement('span');
+          particle.className = 'gsap-particle';
+          particle.style.position = 'absolute';
+          particle.style.left = btnCenterX + 'px';
+          particle.style.top = btnCenterY + 'px';
+          particle.style.fontSize = '13px';
+          particle.style.fontFamily = 'monospace';
+          particle.style.fontWeight = 'bold';
+          particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+          particle.style.pointerEvents = 'none';
+          particle.style.zIndex = '3';
+          particle.style.opacity = '0.92';
+          particle.style.userSelect = 'none';
+          particle.innerText = codeSymbols[Math.floor(Math.random() * codeSymbols.length)];
+          btn.style.position = 'relative';
+          btn.appendChild(particle);
+          particles.push(particle);
+        }
+        particles.forEach((particle, i) => {
+          const angle = (Math.PI * 2 * i) / numParticles + Math.random() * 0.3;
+          const distance = 28 + Math.random() * 12;
+          gsap.to(particle, {
+            x: Math.cos(angle) * distance,
+            y: Math.sin(angle) * distance,
+            scale: 0.7 + Math.random() * 0.7,
+            opacity: 0,
+            rotate: Math.random() * 360,
+            duration: 0.55 + Math.random() * 0.13,
+            ease: 'power2.out',
+            onComplete: () => {
+              if (particle.parentNode) particle.parentNode.removeChild(particle);
+            }
+          });
+        });
+      });
+    });
+  }, []);
   const nameRef = useRef<HTMLSpanElement>(null);
+  const showThankYou = useDownloadThankYou();
   const titleRef = useRef<HTMLDivElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
@@ -614,11 +672,11 @@ const Hero = () => {
             <div ref={buttonsRef} className="flex justify-center lg:justify-start space-x-6">
               {/* GitHub Button */}
               <motion.a
+                ref={el => buttonRefs.current[0] = el}
                 href="https://github.com/Kiran0511"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative flex items-center space-x-2 bg-[#58A6FF] text-white px-6 py-3 rounded-lg hover:bg-[#1F6FEB] transition-all duration-300 overflow-hidden hover:shadow-lg"
-                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
@@ -627,11 +685,11 @@ const Hero = () => {
               </motion.a>
               {/* LinkedIn Button */}
               <motion.a
+                ref={el => buttonRefs.current[1] = el}
                 href="https://linkedin.com/in/kiran-m-a3b52a274"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative flex items-center space-x-2 border border-[#58A6FF] text-[#58A6FF] px-6 py-3 rounded-lg hover:bg-[#58A6FF] hover:text-white transition-all duration-300 overflow-hidden hover:shadow-lg"
-                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-[#58A6FF] to-[#F778BA] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -640,13 +698,14 @@ const Hero = () => {
               </motion.a>
               {/* Download Resume Button - Consistent Style */}
               <motion.a
+                ref={el => buttonRefs.current[2] = el}
                 href="/kiran_resume.pdf"
                 download
                 className="group relative flex items-center space-x-1 bg-[#58A6FF] text-white px-3 py-1.5 rounded-lg hover:bg-[#1F6FEB] transition-all duration-300 overflow-hidden hover:shadow-lg text-sm"
-                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={showThankYou}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                 {/* Download Icon */}

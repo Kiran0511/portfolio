@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useDownloadThankYou } from '../hooks/use-download-thankyou';
 import { motion } from 'framer-motion';
 import { Menu, X, Download } from 'lucide-react';
 
@@ -7,6 +8,7 @@ const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  const showThankYou = useDownloadThankYou();
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -71,6 +73,7 @@ const Navigation = () => {
             className="hidden md:flex items-center space-x-2 bg-[#58A6FF] text-white px-4 py-2 rounded-lg hover:bg-[#1F6FEB] transition-colors duration-300"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={showThankYou}
           >
             <Download size={18} />
             <span>Download Resume</span>
@@ -111,6 +114,7 @@ const Navigation = () => {
                 className="flex items-center space-x-2 bg-[#58A6FF] text-white px-3 py-2 rounded-lg hover:bg-[#1F6FEB] transition-colors duration-300 w-full mt-2"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={showThankYou}
               >
                 <Download size={18} />
                 <span>Download Resume</span>

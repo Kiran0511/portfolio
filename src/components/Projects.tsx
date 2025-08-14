@@ -4,31 +4,41 @@ import { motion } from 'framer-motion';
 import { Github, ExternalLink, Shield, Hotel } from 'lucide-react';
 
 const Projects = () => {
-  // Coding-Themed Background - Optimized for About Section
-  const aboutBackground = (
-    <div className="absolute inset-0 overflow-hidden opacity-35 pointer-events-none">
-      {/* Matrix Code Rain - Reduced for About section */}
+  // Coding-Themed Background - Same as Skills Section
+  const skillsBackground = (
+    <div className="absolute inset-0 overflow-hidden opacity-35">
+      {/* Matrix Code Rain - Same as Skills section */}
       <div className="absolute inset-0">
         {[...Array(3)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute top-0 text-[#58A6FF]/60 text-xs font-mono leading-8"
             style={{ left: `${20 + i * 25}%` }}
-            animate={{ y: [-50, typeof window !== 'undefined' ? window.innerHeight + 50 : 500] }}
+            animate={{ y: [-50, window.innerHeight + 50] }}
             transition={{ duration: 18 + Math.random() * 6, repeat: Infinity, ease: "linear", delay: Math.random() * 12 }}
           >
-            {["const", "function", "return", "class", "import", "export", "=>", "async", "if", "else", "for", "while", "{}", "[]", "()", "&&", "||", "===", "await", "try", "catch", "useState", "useEffect"].map((code, index) => code + " ")}
+            {['const', 'function', 'return', 'class', 'import', 'export', '=>', 'async', 'if', 'else', 'for', 'while', '{}', '[]', '()', '&&', '||', '===', 'await', 'try', 'catch', 'useState', 'useEffect', 'public', 'static', 'void', 'System.out.println()', 'new', 'extends', 'implements', 'this', 'super', 'String', 'int', 'boolean', 'private', 'protected', 'throws', 'interface', 'package', 'import java.util.*;'].map((code, index) => (
+              <motion.div
+                key={index}
+                className="mb-5 opacity-70"
+                animate={{ opacity: [0.3, 0.9, 0.3] }}
+                transition={{ duration: 4, repeat: Infinity, delay: index * 0.5 }}
+              >
+                {code}
+              </motion.div>
+            ))}
           </motion.div>
         ))}
       </div>
-      {/* Floating Code Snippets - About-themed */}
+
+      {/* Floating Code Snippets - Skills-themed */}
       <div className="absolute inset-0">
         {[
-          "const skills = ['React', 'Node.js'];",
-          "function learn() { return growth; }",
-          "const experience = 'Growing';",
-          "while(passionate) { code++; }",
-          "const goal = 'Excellence';"
+          "const mySkills = ['Next.js'];",
+          "function develop() { return innovation; }",
+          "const expertise = 'Full-Stack';",
+          "while(learning) { skills++; }",
+          "const passion = 'Technology';"
         ].map((snippet, i) => (
           <motion.div
             key={i}
@@ -41,28 +51,84 @@ const Projects = () => {
           </motion.div>
         ))}
       </div>
-      {/* Binary Rain - Simplified */}
+
+      {/* Binary Rain - Same as Skills */}
       <div className="absolute inset-0">
         {[...Array(5)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute text-[#58A6FF]/35 text-xs font-mono"
             style={{ left: `${10 + i * 15}%`, transform: `rotate(${Math.random() * 10 - 5}deg)` }}
-            animate={{ y: [-60, typeof window !== 'undefined' ? window.innerHeight + 60 : 500] }}
+            animate={{ y: [-60, window.innerHeight + 60] }}
             transition={{ duration: 25 + Math.random() * 10, repeat: Infinity, ease: "linear", delay: Math.random() * 20 }}
           >
-            {Array.from({ length: 8 }, () => Math.random() > 0.5 ? '1' : '0').join(' ')}
+            {Array.from({ length: 8 }, () => Math.random() > 0.5 ? '1' : '0').map((bit, index) => (
+              <motion.div
+                key={index}
+                className="mb-3"
+                animate={{ opacity: [0.2, 0.7, 0.2], scale: [0.9, 1.1, 0.9] }}
+                transition={{ duration: 5, repeat: Infinity, delay: index * 0.3 }}
+              >
+                {bit}
+              </motion.div>
+            ))}
           </motion.div>
         ))}
       </div>
-      {/* Programming Symbols - About themed */}
+
+      {/* Programming Symbols - Same as Skills */}
       <div className="absolute inset-0">
-        {["{ }", "< >", "=>", "&&", "||", "++"].map((symbol, i) => (
-          <span key={i} className="absolute text-[#F778BA]/40 text-lg font-mono" style={{ left: `${10 + i * 15}%`, top: `${10 + i * 15}%` }}>{symbol}</span>
+        {['{ }', '< >', '=>', '&&', '||', '++'].map((symbol, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-[#58A6FF]/30 text-lg font-mono font-bold"
+            style={{ left: `${Math.random() * 80}%`, top: `${Math.random() * 80}%` }}
+            animate={{ rotate: [0, 120, 240, 360], scale: [0.6, 1.1, 0.6], opacity: [0.2, 0.5, 0.2] }}
+            transition={{ duration: 40 + Math.random() * 20, repeat: Infinity, ease: "easeInOut", delay: i * 6 }}
+          >
+            {symbol}
+          </motion.div>
         ))}
       </div>
-      {/* Subtle Holographic Glow */}
-      <div className="absolute inset-0 pointer-events-none opacity-40" style={{ background: `radial-gradient(circle at 30% 40%, rgba(88, 166, 255, 0.04) 0%, transparent 60%),radial-gradient(circle at 70% 60%, rgba(247, 120, 186, 0.04) 0%, transparent 60%)` }} />
+
+      {/* Code Editor Window - Skills themed */}
+      <motion.div
+        className="absolute top-10 right-5 bg-[#0D1117]/90 border border-[#F778BA]/40 rounded-lg p-2 font-mono text-xs max-w-xs"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: [0, 0.8, 0.8, 0], scale: [0.8, 1, 1, 0.8] }}
+        transition={{ duration: 15, repeat: Infinity, repeatDelay: 10 }}
+      >
+        <div className="space-y-1">
+          <div><span className="text-[#F778BA]">const</span> <span className="text-[#58A6FF]">mySkills</span> = &#123;</div>
+          <div className="ml-2"><span className="text-[#F778BA]">frontend:</span> <span className="text-green-400">['Next.js']</span>,</div>
+          <div className="ml-2"><span className="text-[#F778BA]">backend:</span> <span className="text-green-400">['Node.js', 'Express.js']</span>,</div>
+          <div className="ml-2"><span className="text-[#F778BA]">database:</span> <span className="text-green-400">['MongoDB', 'SQL']</span></div>
+          <div>&#125;;</div>
+        </div>
+      </motion.div>
+
+      {/* Git Branch Visualization - Same as Skills */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-12">
+        <defs>
+          <linearGradient id="skillsGitGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#58A6FF" />
+            <stop offset="100%" stopColor="#F778BA" />
+          </linearGradient>
+        </defs>
+        {[...Array(2)].map((_, i) => (
+          <motion.path
+            key={i}
+            d={`M ${100 + i * 150} 150 Q ${200 + i * 150} 250 ${300 + i * 150} 350 T ${500 + i * 150} 550`}
+            stroke="url(#skillsGitGradient)"
+            strokeWidth="1.5"
+            fill="none"
+            strokeDasharray="6,3"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: [0, 1, 0] }}
+            transition={{ duration: 20 + Math.random() * 10, repeat: Infinity, ease: "easeInOut", delay: i * 8 }}
+          />
+        ))}
+      </svg>
     </div>
   );
   const projects = [
@@ -127,7 +193,7 @@ const Projects = () => {
 
   return (
     <section id="projects" className="py-20 relative overflow-hidden">
-      {aboutBackground}
+      {skillsBackground}
       {/* Code Editor Window - Skills themed */}
       <motion.div
         className="absolute top-10 right-5 bg-[#0D1117]/90 border border-[#F778BA]/40 rounded-lg p-2 font-mono text-xs max-w-xs"

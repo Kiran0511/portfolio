@@ -682,11 +682,11 @@ const Hero = () => {
                 href="https://github.com/Kiran0511"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex items-center justify-center space-x-2 bg-[#58A6FF] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:bg-[#1F6FEB] transition-all duration-300 overflow-hidden hover:shadow-lg text-sm sm:text-base"
+                className="group relative flex items-center justify-center space-x-2 bg-[#58A6FF] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg hover:bg-[#1F6FEB] transition-all duration-300 overflow-hidden hover:shadow-lg text-sm sm:text-base"
                 whileTap={{ scale: 0.98 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                <Github size={18} className="relative z-10" />
+                <Github size={16} className="relative z-10" />
                 <span className="relative z-10">GitHub</span>
               </motion.a>
               {/* LinkedIn Button */}
@@ -695,11 +695,11 @@ const Hero = () => {
                 href="https://linkedin.com/in/kiran-m-a3b52a274"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex items-center justify-center space-x-2 border border-[#58A6FF] text-[#58A6FF] px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:bg-[#58A6FF] hover:text-white transition-all duration-300 overflow-hidden hover:shadow-lg text-sm sm:text-base"
+                className="group relative flex items-center justify-center space-x-2 border border-[#58A6FF] text-[#58A6FF] px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg hover:bg-[#58A6FF] hover:text-white transition-all duration-300 overflow-hidden hover:shadow-lg text-sm sm:text-base"
                 whileTap={{ scale: 0.98 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-[#58A6FF] to-[#F778BA] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <Linkedin size={18} className="relative z-10" />
+                <Linkedin size={16} className="relative z-10" />
                 <span className="relative z-10">LinkedIn</span>
               </motion.a>
               {/* Download Resume Button - Consistent Style */}
@@ -707,7 +707,7 @@ const Hero = () => {
                 ref={el => buttonRefs.current[2] = el}
                 href="/kiran_resume.pdf"
                 download
-                className="group relative flex items-center justify-center space-x-1.5 bg-[#58A6FF] text-white px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg hover:bg-[#1F6FEB] transition-all duration-300 overflow-hidden hover:shadow-lg text-sm sm:text-base"
+                className="group relative flex items-center justify-center space-x-1.5 bg-[#58A6FF] text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg hover:bg-[#1F6FEB] transition-all duration-300 overflow-hidden hover:shadow-lg text-sm sm:text-base"
                 whileTap={{ scale: 0.98 }}
                 target="_blank"
                 rel="noopener noreferrer"

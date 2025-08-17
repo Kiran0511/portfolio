@@ -20,13 +20,18 @@ const Hero = () => {
       btn.onmouseenter = null;
       btn.onmouseleave = null;
       Array.from(btn.querySelectorAll('.gsap-shimmer, .gsap-underline')).forEach(el => el.remove());
+      
+      // Only add particle effects on larger screens for performance
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) return;
+      
       btn.addEventListener('mouseenter', (e) => {
         const rect = btn.getBoundingClientRect();
         const btnCenterX = rect.width / 2;
         const btnCenterY = rect.height / 2;
-        const numParticles = 8;
+        const numParticles = 6; // Reduced from 8 for better performance
         const colors = ['#58A6FF', '#F778BA', '#fff', '#8B949E', '#ED8B00', '#22D3EE'];
-        const codeSymbols = ['{ }', '<>', '=>', ';', '()', '[]', '&&', '||', '===', '!', 'const', 'let', 'if', 'for'];
+        const codeSymbols = ['{ }', '<>', '=>', ';', '()', '[]', '&&', '||'];
         const particles: HTMLSpanElement[] = [];
         for (let i = 0; i < numParticles; i++) {
           const particle = document.createElement('span');
@@ -34,7 +39,7 @@ const Hero = () => {
           particle.style.position = 'absolute';
           particle.style.left = btnCenterX + 'px';
           particle.style.top = btnCenterY + 'px';
-          particle.style.fontSize = '13px';
+          particle.style.fontSize = '12px';
           particle.style.fontFamily = 'monospace';
           particle.style.fontWeight = 'bold';
           particle.style.color = colors[Math.floor(Math.random() * colors.length)];
@@ -49,14 +54,14 @@ const Hero = () => {
         }
         particles.forEach((particle, i) => {
           const angle = (Math.PI * 2 * i) / numParticles + Math.random() * 0.3;
-          const distance = 28 + Math.random() * 12;
+          const distance = 24 + Math.random() * 8; // Reduced distance
           gsap.to(particle, {
             x: Math.cos(angle) * distance,
             y: Math.sin(angle) * distance,
-            scale: 0.7 + Math.random() * 0.7,
+            scale: 0.7 + Math.random() * 0.5,
             opacity: 0,
             rotate: Math.random() * 360,
-            duration: 0.55 + Math.random() * 0.13,
+            duration: 0.45 + Math.random() * 0.1,
             ease: 'power2.out',
             onComplete: () => {
               if (particle.parentNode) particle.parentNode.removeChild(particle);
@@ -318,9 +323,9 @@ const Hero = () => {
   }, []);
 
   return (
-  <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-      {/* Java-themed Code Snippet Fade-in */}
-      <div className="pointer-events-none absolute inset-0 z-0">
+  <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 sm:pt-20">
+      {/* Java-themed Code Snippet Fade-in - Hidden on mobile */}
+      <div className="pointer-events-none absolute inset-0 z-0 hidden lg:block">
         <motion.div
           className="absolute text-xs font-mono text-[#ED8B00]/80 bg-[#0D1117]/80 px-3 py-2 rounded shadow-lg border border-[#ED8B00]/30"
           style={{
@@ -337,13 +342,13 @@ const Hero = () => {
           {'System.out.println("Hello, World!");'}
         </motion.div>
       </div>
-      {/* Animated Code Snippet Fade-ins in empty spaces */}
-      <div className="pointer-events-none absolute inset-0 z-0">
+      {/* Animated Code Snippet Fade-ins - Reduced on mobile */}
+      <div className="pointer-events-none absolute inset-0 z-0 hidden md:block">
         {["console.log('Hello World!');", "const user = 'Kiran';", "system.out.println('Let dreams be dreams.');", "if (success) { celebrate(); }", "<Portfolio />", "npm run dev", "export default Hero;"]
           .map((snippet, i) => (
             <motion.div
               key={i}
-              className="absolute text-xs font-mono text-[#58A6FF]/60 bg-[#0D1117]/70 px-3 py-2 rounded shadow-lg"
+              className="absolute text-xs font-mono text-[#58A6FF]/60 bg-[#0D1117]/70 px-2 py-1 rounded shadow-lg"
               style={{
                 left: `${10 + Math.random() * 80}%`,
                 top: `${10 + Math.random() * 80}%`,
@@ -475,9 +480,9 @@ const Hero = () => {
           ))}
         </div>
 
-        {/* Terminal Commands Animation - Optimized */}
+        {/* Terminal Commands Animation - Hidden on mobile for performance */}
         <motion.div
-          className="absolute bottom-10 left-10 bg-[#0D1117]/85 border border-[#58A6FF]/25 rounded-lg p-3 font-mono text-sm max-w-md"
+          className="absolute bottom-10 left-10 bg-[#0D1117]/85 border border-[#58A6FF]/25 rounded-lg p-3 font-mono text-sm max-w-md hidden lg:block"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: [0, 0.8, 0.8, 0], y: [40, 0, 0, -40] }}
           transition={{
@@ -514,9 +519,9 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Code Editor Simulation - Optimized */}
+        {/* Code Editor Simulation - Hidden on mobile */}
         <motion.div
-          className="absolute top-20 right-10 bg-[#0D1117]/85 border border-[#F778BA]/25 rounded-lg p-3 font-mono text-xs max-w-sm"
+          className="absolute top-20 right-10 bg-[#0D1117]/85 border border-[#F778BA]/25 rounded-lg p-3 font-mono text-xs max-w-sm hidden lg:block"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ 
             opacity: [0, 0.8, 0.8, 0], 
@@ -606,21 +611,21 @@ const Hero = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          className="text-center lg:text-left lg:flex lg:items-center lg:justify-between"
+          className="text-center lg:text-left lg:flex lg:items-center lg:justify-between gap-8"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           {/* Text Content */}
-          <div className="lg:w-1/2">
-            <motion.div variants={itemVariants} className="mb-6">
+          <div className="lg:w-1/2 order-2 lg:order-1">
+            <motion.div variants={itemVariants} className="mb-4 sm:mb-6">
               <motion.h1 
-                className="text-5xl lg:text-7xl font-bold mb-4 relative"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 relative leading-tight"
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <span className="whitespace-nowrap">Hi, I'm&nbsp;
+                <span className="block sm:inline">Hi, I'm&nbsp;
                   <span 
                     ref={nameRef} 
                     className="text-[#58A6FF] relative inline-block cursor-pointer hover:text-[#F778BA] transition-colors duration-300"
@@ -635,10 +640,10 @@ const Hero = () => {
               </motion.h1>
               <div 
                 ref={titleRef}
-                className="text-2xl lg:text-3xl text-[#8B949E] mb-6 h-12 relative font-medium holographic-text whitespace-nowrap overflow-hidden text-ellipsis"
+                className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-[#8B949E] mb-4 sm:mb-6 h-8 sm:h-12 relative font-medium holographic-text whitespace-nowrap overflow-hidden text-ellipsis"
               >
                 <motion.span
-                  className="absolute right-0 top-0 inline-block w-1 h-8 bg-[#58A6FF] ml-1"
+                  className="absolute right-0 top-0 inline-block w-1 h-6 sm:h-8 bg-[#58A6FF] ml-1"
                   animate={{ opacity: [0, 1, 0] }}
                   transition={{ duration: 1, repeat: Infinity, delay: 3 }}
                 />
@@ -647,40 +652,41 @@ const Hero = () => {
 
             <p 
               ref={descriptionRef}
-              className="text-lg text-[#8B949E] mb-8 max-w-2xl"
+              className="text-sm sm:text-base lg:text-lg text-[#8B949E] mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0"
             >
               Looking forward to work in an organization where I can learn and use my skills 
               and knowledge to deliver value added results that provide me job satisfaction 
               and self-development.
             </p>
 
-            <div ref={detailsRef} className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
-              <div className="flex items-center space-x-2 text-[#8B949E]">
-                <MapPin size={18} className="text-[#F778BA]" />
+            <div ref={detailsRef} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-3 sm:space-y-0 sm:space-x-4 lg:space-x-6 mb-6 sm:mb-8">
+              <div className="flex items-center space-x-2 text-[#8B949E] text-sm sm:text-base">
+                <MapPin size={16} className="text-[#F778BA] flex-shrink-0" />
                 <span>Bengaluru</span>
               </div>
-              <div className="flex items-center space-x-2 text-[#8B949E]">
-                <Phone size={18} className="text-[#F778BA]" />
+              <div className="flex items-center space-x-2 text-[#8B949E] text-sm sm:text-base">
+                <Phone size={16} className="text-[#F778BA] flex-shrink-0" />
                 <span>9739896965</span>
               </div>
-              <div className="flex items-center space-x-2 text-[#8B949E]">
-                <Mail size={18} className="text-[#F778BA]" />
-                <span>kiranm1102@gmail.com</span>
+              <div className="flex items-center space-x-2 text-[#8B949E] text-sm sm:text-base">
+                <Mail size={16} className="text-[#F778BA] flex-shrink-0" />
+                <span className="hidden sm:inline">kiranm1102@gmail.com</span>
+                <span className="sm:hidden">Email</span>
               </div>
             </div>
 
-            <div ref={buttonsRef} className="flex justify-center lg:justify-start space-x-6">
+            <div ref={buttonsRef} className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-3 sm:space-y-0 sm:space-x-4 lg:space-x-6">
               {/* GitHub Button */}
               <motion.a
                 ref={el => buttonRefs.current[0] = el}
                 href="https://github.com/Kiran0511"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex items-center space-x-2 bg-[#58A6FF] text-white px-6 py-3 rounded-lg hover:bg-[#1F6FEB] transition-all duration-300 overflow-hidden hover:shadow-lg"
+                className="group relative flex items-center justify-center space-x-2 bg-[#58A6FF] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:bg-[#1F6FEB] transition-all duration-300 overflow-hidden hover:shadow-lg text-sm sm:text-base"
                 whileTap={{ scale: 0.98 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                <Github size={20} className="relative z-10" />
+                <Github size={18} className="relative z-10" />
                 <span className="relative z-10">GitHub</span>
               </motion.a>
               {/* LinkedIn Button */}
@@ -689,11 +695,11 @@ const Hero = () => {
                 href="https://linkedin.com/in/kiran-m-a3b52a274"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex items-center space-x-2 border border-[#58A6FF] text-[#58A6FF] px-6 py-3 rounded-lg hover:bg-[#58A6FF] hover:text-white transition-all duration-300 overflow-hidden hover:shadow-lg"
+                className="group relative flex items-center justify-center space-x-2 border border-[#58A6FF] text-[#58A6FF] px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:bg-[#58A6FF] hover:text-white transition-all duration-300 overflow-hidden hover:shadow-lg text-sm sm:text-base"
                 whileTap={{ scale: 0.98 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-[#58A6FF] to-[#F778BA] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <Linkedin size={20} className="relative z-10" />
+                <Linkedin size={18} className="relative z-10" />
                 <span className="relative z-10">LinkedIn</span>
               </motion.a>
               {/* Download Resume Button - Consistent Style */}
@@ -701,7 +707,7 @@ const Hero = () => {
                 ref={el => buttonRefs.current[2] = el}
                 href="/kiran_resume.pdf"
                 download
-                className="group relative flex items-center space-x-1 bg-[#58A6FF] text-white px-3 py-1.5 rounded-lg hover:bg-[#1F6FEB] transition-all duration-300 overflow-hidden hover:shadow-lg text-sm"
+                className="group relative flex items-center justify-center space-x-1.5 bg-[#58A6FF] text-white px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg hover:bg-[#1F6FEB] transition-all duration-300 overflow-hidden hover:shadow-lg text-sm sm:text-base"
                 whileTap={{ scale: 0.98 }}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -709,7 +715,7 @@ const Hero = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                 {/* Download Icon */}
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10 flex-shrink-0">
                   <path d="M12 3v14m0 0l-5-5m5 5l5-5" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 <span className="relative z-10">Download Resume</span>
@@ -719,7 +725,7 @@ const Hero = () => {
 
           {/* Profile Image with GSAP animation */}
           <motion.div 
-            className="lg:w-1/2 mt-12 lg:mt-0 flex justify-center"
+            className="lg:w-1/2 order-1 lg:order-2 mt-0 lg:mt-0 mb-8 lg:mb-0 flex justify-center"
             variants={itemVariants}
           >
             <div
@@ -750,7 +756,7 @@ const Hero = () => {
               }}
             >
               <div
-                className="w-80 h-80 rounded-full bg-gradient-to-br from-[#58A6FF] to-[#F778BA] p-1"
+                className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full bg-gradient-to-br from-[#58A6FF] to-[#F778BA] p-1"
               >
                 <div className="w-full h-full rounded-full bg-[#0D1117] p-2 flex items-center justify-center">
                   <img 
@@ -765,7 +771,7 @@ const Hero = () => {
                 </div>
               </div>
               <motion.div
-                className="absolute -bottom-4 -right-4 w-16 h-16 bg-[#F778BA] rounded-full flex items-center justify-center shadow-lg"
+                className="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 w-12 h-12 sm:w-16 sm:h-16 bg-[#F778BA] rounded-full flex items-center justify-center shadow-lg"
                 animate={{
                   y: [0, -5, 0],
                 }}
@@ -775,7 +781,7 @@ const Hero = () => {
                   ease: "easeInOut"
                 }}
               >
-                <span className="text-white text-xl">👋</span>
+                <span className="text-white text-lg sm:text-xl">👋</span>
               </motion.div>
             </div>
           </motion.div>
@@ -784,7 +790,7 @@ const Hero = () => {
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2"
         animate={{
           y: [0, 10, 0],
         }}
@@ -794,11 +800,11 @@ const Hero = () => {
           ease: "easeInOut"
         }}
       >
-        <div className="w-6 h-10 border-2 border-[#58A6FF] rounded-full flex justify-center">
+        <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-[#58A6FF] rounded-full flex justify-center">
           <motion.div
-            className="w-1 h-3 bg-[#58A6FF] rounded-full mt-2"
+            className="w-1 h-2 sm:h-3 bg-[#58A6FF] rounded-full mt-1.5 sm:mt-2"
             animate={{
-              height: [12, 6, 12],
+              height: [8, 4, 8],
             }}
             transition={{
               duration: 1.5,
